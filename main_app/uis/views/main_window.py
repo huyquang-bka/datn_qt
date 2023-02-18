@@ -104,6 +104,26 @@ class Ui_MainWindow(object):
 "                padding-top: 15px;\n"
 "            }")
         self.btn_stop.setObjectName("btn_stop")
+        self.btn_graph = QtWidgets.QPushButton(self.groupBox)
+        self.btn_graph.setGeometry(QtCore.QRect(15, 350, 120, 60))
+        self.btn_graph.setStyleSheet("QPushButton {\n"
+"                background-color: #3498db;\n"
+"                color: #fff;\n"
+"                border-radius: 25px;\n"
+"                border: 2px solid #2980b9;\n"
+"                font-size: 18px;\n"
+"                font-weight: bold;\n"
+"            }\n"
+"            QPushButton:hover {\n"
+"                background-color: #2980b9;\n"
+"                cursor: pointer;\n"
+"            }\n"
+"            QPushButton:pressed {\n"
+"                background-color: #2980b9;\n"
+"                padding-left: 15px;\n"
+"                padding-top: 15px;\n"
+"            }")
+        self.btn_graph.setObjectName("btn_graph")
         self.gridLayout.addWidget(self.groupBox, 0, 0, 1, 1)
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_2.setMaximumSize(QtCore.QSize(10000, 16777215))
@@ -167,6 +187,7 @@ class Ui_MainWindow(object):
         self.btn_draw_polygon.setText(_translate("MainWindow", "Vẽ Vùng"))
         self.btn_start.setText(_translate("MainWindow", "Start"))
         self.btn_stop.setText(_translate("MainWindow", "Stop"))
+        self.btn_graph.setText(_translate("MainWindow", "Graph"))
         self.label_2.setText(_translate("MainWindow", "Car"))
         self.label_4.setText(_translate("MainWindow", "Motor"))
         self.qlabel_frame.setText(_translate("MainWindow", "TextLabel"))

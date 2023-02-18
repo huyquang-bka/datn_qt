@@ -2,6 +2,7 @@ import queue
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ..views.main_window import Ui_MainWindow
 from .c_widget_draw_polygon import WidgetDrawPolygon
+from .c_widget_graph import WidgetGraph
 from ...threads.thread_counting import ThreadCounting
 import cv2
 
@@ -23,11 +24,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.widget_draw_polygon.sig_send_polygon.connect(
             self.slot_get_polygon)
 
+        self.widget_graph = WidgetGraph()
+
+        self.ui.btn_stop.setEnabled(False)
+
     def connect_buttons(self):
         self.ui.btn_choose_file.clicked.connect(self.choose_file)
         self.ui.btn_start.clicked.connect(self.start)
         self.ui.btn_stop.clicked.connect(self.stop)
         self.ui.btn_draw_polygon.clicked.connect(self.draw_polygon)
+        self.ui.btn_graph.clicked.connect(self.show_graph)
 
     def slot_get_polygon(self, polygon):
         self.polygon = polygon
@@ -47,7 +53,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def choose_file(self):
         # only choose video files
         fp, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self, "Choose a video file", "", "Video Files (*.mp4 *.avi *.mkv)")
+            self, "Choose a video file", "", "Video Files (*.mp4 *.avi *.mkv, *.flv, *.MTS)")
         self.fp = fp
         if fp:
             self.polygon = []
@@ -78,11 +84,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.qlabel_count_motor.setText("0")
         self.thread_counting.setup_fp(self.fp)
         self.thread_counting.start()
+        self.ui.btn_stop.setEnabled(True)
         self.ui.btn_start.setEnabled(False)
 
     def stop(self):
         self.thread_counting.stop()
         self.ui.btn_start.setEnabled(True)
+        self.ui.btn_stop.setEnabled(False)
 
     def draw_polygon(self):
         self.widget_draw_polygon.show_frame(self.fp)
+
+    def show_graph(self):
+        self.widget_graph.reload()
+        self.widget_graph.show()

@@ -157,6 +157,38 @@
         <string>Stop</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="btn_graph">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>350</y>
+         <width>120</width>
+         <height>60</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                background-color: #3498db;
+                color: #fff;
+                border-radius: 25px;
+                border: 2px solid #2980b9;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #2980b9;
+                cursor: pointer;
+            }
+            QPushButton:pressed {
+                background-color: #2980b9;
+                padding-left: 15px;
+                padding-top: 15px;
+            }</string>
+       </property>
+       <property name="text">
+        <string>Graph</string>
+       </property>
+      </widget>
      </widget>
     </item>
     <item row="0" column="1">

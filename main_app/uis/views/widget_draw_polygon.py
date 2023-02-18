@@ -25,14 +25,14 @@ class Ui_WidgetDrawPolygon(object):
         self.btn_save = QtWidgets.QPushButton(self.groupBox)
         self.btn_save.setGeometry(QtCore.QRect(30, 30, 91, 31))
         self.btn_save.setStyleSheet("background: white;\n"
-"border-radius: 6px;\n"
-"border: 2px solid black;")
+                                    "border-radius: 6px;\n"
+                                    "border: 2px solid black;")
         self.btn_save.setObjectName("btn_save")
         self.btn_clear = QtWidgets.QPushButton(self.groupBox)
         self.btn_clear.setGeometry(QtCore.QRect(30, 80, 91, 31))
         self.btn_clear.setStyleSheet("background: white;\n"
-"border-radius: 6px;\n"
-"border: 2px solid black;")
+                                     "border-radius: 6px;\n"
+                                     "border: 2px solid black;")
         self.btn_clear.setObjectName("btn_clear")
         self.gridLayout.addWidget(self.groupBox, 0, 0, 1, 1)
         self.qlabel_frame = QtWidgets.QLabel(WidgetDrawPolygon)
@@ -45,7 +45,8 @@ class Ui_WidgetDrawPolygon(object):
 
     def retranslateUi(self, WidgetDrawPolygon):
         _translate = QtCore.QCoreApplication.translate
-        WidgetDrawPolygon.setWindowTitle(_translate("WidgetDrawPolygon", "Form"))
+        WidgetDrawPolygon.setWindowTitle(
+            _translate("WidgetDrawPolygon", "Form"))
         self.btn_save.setText(_translate("WidgetDrawPolygon", "Lưu"))
         self.btn_clear.setText(_translate("WidgetDrawPolygon", "Xóa"))
         self.qlabel_frame.setText(_translate("WidgetDrawPolygon", "TextLabel"))

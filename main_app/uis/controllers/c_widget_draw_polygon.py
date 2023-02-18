@@ -67,8 +67,10 @@ class DrawLabel(QtWidgets.QLabel):
             current_frame = self.frame
             self.show_frame(painter, current_frame)
         # Draw the polygon on the label
-        pen = QtGui.QPen(QtGui.QColor(255, 0, 0), 2)
+        pen = QtGui.QPen(QtGui.QColor(255, 0, 0), 5)
         painter.setPen(pen)
+        for point in self.polygon:
+            painter.drawPoint(point[0], point[1])
         if len(self.polygon) > 0:
             prev_point = self.polygon[0]
             for point in self.polygon:

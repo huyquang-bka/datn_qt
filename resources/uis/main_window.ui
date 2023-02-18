@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>625</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="maximumSize">
+       <size>
+        <width>150</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: lightblue</string>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QPushButton" name="btn_choose_file">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>30</y>
+         <width>120</width>
+         <height>60</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                background-color: #3498db;
+                color: #fff;
+                border-radius: 25px;
+                border: 2px solid #2980b9;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #2980b9;
+                cursor: pointer;
+            }
+            QPushButton:pressed {
+                background-color: #2980b9;
+                padding-left: 15px;
+                padding-top: 15px;
+            }</string>
+       </property>
+       <property name="text">
+        <string>Chọn File</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_draw_polygon">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>110</y>
+         <width>120</width>
+         <height>60</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                background-color: #3498db;
+                color: #fff;
+                border-radius: 25px;
+                border: 2px solid #2980b9;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #2980b9;
+                cursor: pointer;
+            }
+            QPushButton:pressed {
+                background-color: #2980b9;
+                padding-left: 15px;
+                padding-top: 15px;
+            }</string>
+       </property>
+       <property name="text">
+        <string>Vẽ Vùng</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_start">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>190</y>
+         <width>120</width>
+         <height>60</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                background-color: #3498db;
+                color: #fff;
+                border-radius: 25px;
+                border: 2px solid #2980b9;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #2980b9;
+                cursor: pointer;
+            }
+            QPushButton:pressed {
+                background-color: #2980b9;
+                padding-left: 15px;
+                padding-top: 15px;
+            }</string>
+       </property>
+       <property name="text">
+        <string>Start</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_stop">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>270</y>
+         <width>120</width>
+         <height>60</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                background-color: #3498db;
+                color: #fff;
+                border-radius: 25px;
+                border: 2px solid #2980b9;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #2980b9;
+                cursor: pointer;
+            }
+            QPushButton:pressed {
+                background-color: #2980b9;
+                padding-left: 15px;
+                padding-top: 15px;
+            }</string>
+       </property>
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="maximumSize">
+       <size>
+        <width>10000</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: lightblue</string>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>150</height>
+          </size>
+         </property>
+         <property name="title">
+          <string/>
+         </property>
+         <widget class="QLabel" name="label_2">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>30</y>
+            <width>111</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: white;
+border-radius: 6px;
+border: 2px solid black;</string>
+          </property>
+          <property name="text">
+           <string>Car</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="qlabel_count_car">
+          <property name="geometry">
+           <rect>
+            <x>230</x>
+            <y>30</y>
+            <width>111</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: white;
+border-radius: 6px;
+border: 2px solid black;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_4">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>90</y>
+            <width>111</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: white;
+border-radius: 6px;
+border: 2px solid black;</string>
+          </property>
+          <property name="text">
+           <string>Motor</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="qlabel_count_motor">
+          <property name="geometry">
+           <rect>
+            <x>230</x>
+            <y>90</y>
+            <width>111</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: white;
+border-radius: 6px;
+border: 2px solid black;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="qlabel_frame">
+         <property name="styleSheet">
+          <string notr="true">background: black</string>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

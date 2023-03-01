@@ -17,6 +17,7 @@ def convert_time_to_ms(seconds):
 def dict_to_graph(count_dict, fp, speed=False):
     plt.figure(figsize=(8, 8))
     name = os.path.basename(fp)
+    title =
     if not speed:
         name = os.path.splitext(name)[0]
     else:
@@ -35,10 +36,17 @@ def dict_to_graph(count_dict, fp, speed=False):
         plt.text(i, y, "%d" % v, ha="center")
     plt.ylim(0, max_type[-1] + 25)
     plt.xlabel("Time (s)")
-    plt.ylabel("Count")
+    if not speed:
+        plt.ylabel("Count")
+    else:
+        plt.ylabel("Speed (km/h)")
     plt.legend(loc="upper left")
-    plt.title(
-        f"Counting result for {name}\nCar: {car_count[-1]}\nMotor: {motor_count[-1]}")
+    if not speed:
+        plt.title(
+            f"Counting result for {title}\nCar: {car_count[-1]}\nMotor: {motor_count[-1]}")
+    else:
+        plt.title(
+            f"Speed result for {title}")
     plt.savefig(f"resources/graphs/{name}.png")
 
 

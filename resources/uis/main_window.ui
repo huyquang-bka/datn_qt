@@ -97,7 +97,7 @@
        <property name="geometry">
         <rect>
          <x>15</x>
-         <y>190</y>
+         <y>260</y>
          <width>120</width>
          <height>60</height>
         </rect>
@@ -129,7 +129,7 @@
        <property name="geometry">
         <rect>
          <x>15</x>
-         <y>270</y>
+         <y>340</y>
          <width>120</width>
          <height>60</height>
         </rect>
@@ -161,7 +161,7 @@
        <property name="geometry">
         <rect>
          <x>15</x>
-         <y>350</y>
+         <y>420</y>
          <width>120</width>
          <height>60</height>
         </rect>
@@ -187,6 +187,38 @@
        </property>
        <property name="text">
         <string>Graph</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_draw_speed">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>190</y>
+         <width>120</width>
+         <height>60</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                background-color: #3498db;
+                color: #fff;
+                border-radius: 25px;
+                border: 2px solid #2980b9;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #2980b9;
+                cursor: pointer;
+            }
+            QPushButton:pressed {
+                background-color: #2980b9;
+                padding-left: 15px;
+                padding-top: 15px;
+            }</string>
+       </property>
+       <property name="text">
+        <string>Vùng tốc độ</string>
        </property>
       </widget>
      </widget>
@@ -287,6 +319,42 @@ border: 2px solid black;</string>
           </property>
           <property name="text">
            <string/>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_3">
+          <property name="geometry">
+           <rect>
+            <x>390</x>
+            <y>30</y>
+            <width>111</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: white;
+border-radius: 6px;
+border: 2px solid black;</string>
+          </property>
+          <property name="text">
+           <string>Vùng tốc độ</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="qline_speed">
+          <property name="geometry">
+           <rect>
+            <x>510</x>
+            <y>29</y>
+            <width>81</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background: white;
+border-radius: 6px;
+border: 2px solid black;</string>
+          </property>
+          <property name="placeholderText">
+           <string>m</string>
           </property>
          </widget>
         </widget>

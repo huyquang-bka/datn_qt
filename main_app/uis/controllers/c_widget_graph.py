@@ -22,7 +22,7 @@ class WidgetGraph(QtWidgets.QWidget):
         self.ui.comboBox_list_graph.currentIndexChanged.connect(
             self.change_graph)
 
-    def change_graph(self, index):
+    def change_graph(self):
         current_graph = self.ui.comboBox_list_graph.currentText()
         fp = os.path.join(self.graph_folder_path, current_graph)
         self.ui.label_graph.setScaledContents(True)

@@ -65,7 +65,7 @@ class Ui_MainWindow(object):
 "            }")
         self.btn_draw_polygon.setObjectName("btn_draw_polygon")
         self.btn_start = QtWidgets.QPushButton(self.groupBox)
-        self.btn_start.setGeometry(QtCore.QRect(15, 190, 120, 60))
+        self.btn_start.setGeometry(QtCore.QRect(15, 260, 120, 60))
         self.btn_start.setStyleSheet("QPushButton {\n"
 "                background-color: #3498db;\n"
 "                color: #fff;\n"
@@ -85,7 +85,7 @@ class Ui_MainWindow(object):
 "            }")
         self.btn_start.setObjectName("btn_start")
         self.btn_stop = QtWidgets.QPushButton(self.groupBox)
-        self.btn_stop.setGeometry(QtCore.QRect(15, 270, 120, 60))
+        self.btn_stop.setGeometry(QtCore.QRect(15, 340, 120, 60))
         self.btn_stop.setStyleSheet("QPushButton {\n"
 "                background-color: #3498db;\n"
 "                color: #fff;\n"
@@ -105,7 +105,7 @@ class Ui_MainWindow(object):
 "            }")
         self.btn_stop.setObjectName("btn_stop")
         self.btn_graph = QtWidgets.QPushButton(self.groupBox)
-        self.btn_graph.setGeometry(QtCore.QRect(15, 350, 120, 60))
+        self.btn_graph.setGeometry(QtCore.QRect(15, 420, 120, 60))
         self.btn_graph.setStyleSheet("QPushButton {\n"
 "                background-color: #3498db;\n"
 "                color: #fff;\n"
@@ -124,6 +124,26 @@ class Ui_MainWindow(object):
 "                padding-top: 15px;\n"
 "            }")
         self.btn_graph.setObjectName("btn_graph")
+        self.btn_draw_speed = QtWidgets.QPushButton(self.groupBox)
+        self.btn_draw_speed.setGeometry(QtCore.QRect(15, 190, 120, 60))
+        self.btn_draw_speed.setStyleSheet("QPushButton {\n"
+"                background-color: #3498db;\n"
+"                color: #fff;\n"
+"                border-radius: 25px;\n"
+"                border: 2px solid #2980b9;\n"
+"                font-size: 18px;\n"
+"                font-weight: bold;\n"
+"            }\n"
+"            QPushButton:hover {\n"
+"                background-color: #2980b9;\n"
+"                cursor: pointer;\n"
+"            }\n"
+"            QPushButton:pressed {\n"
+"                background-color: #2980b9;\n"
+"                padding-left: 15px;\n"
+"                padding-top: 15px;\n"
+"            }")
+        self.btn_draw_speed.setObjectName("btn_draw_speed")
         self.gridLayout.addWidget(self.groupBox, 0, 0, 1, 1)
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_2.setMaximumSize(QtCore.QSize(10000, 16777215))
@@ -162,6 +182,18 @@ class Ui_MainWindow(object):
 "border: 2px solid black;")
         self.qlabel_count_motor.setText("")
         self.qlabel_count_motor.setObjectName("qlabel_count_motor")
+        self.label_3 = QtWidgets.QLabel(self.groupBox_3)
+        self.label_3.setGeometry(QtCore.QRect(390, 30, 111, 41))
+        self.label_3.setStyleSheet("background: white;\n"
+"border-radius: 6px;\n"
+"border: 2px solid black;")
+        self.label_3.setObjectName("label_3")
+        self.qline_speed = QtWidgets.QLineEdit(self.groupBox_3)
+        self.qline_speed.setGeometry(QtCore.QRect(510, 29, 81, 41))
+        self.qline_speed.setStyleSheet("background: white;\n"
+"border-radius: 6px;\n"
+"border: 2px solid black;")
+        self.qline_speed.setObjectName("qline_speed")
         self.gridLayout_2.addWidget(self.groupBox_3, 1, 0, 1, 1)
         self.qlabel_frame = QtWidgets.QLabel(self.groupBox_2)
         self.qlabel_frame.setStyleSheet("background: black")
@@ -188,8 +220,11 @@ class Ui_MainWindow(object):
         self.btn_start.setText(_translate("MainWindow", "Start"))
         self.btn_stop.setText(_translate("MainWindow", "Stop"))
         self.btn_graph.setText(_translate("MainWindow", "Graph"))
+        self.btn_draw_speed.setText(_translate("MainWindow", "Vùng tốc độ"))
         self.label_2.setText(_translate("MainWindow", "Car"))
         self.label_4.setText(_translate("MainWindow", "Motor"))
+        self.label_3.setText(_translate("MainWindow", "Vùng tốc độ"))
+        self.qline_speed.setPlaceholderText(_translate("MainWindow", "m"))
         self.qlabel_frame.setText(_translate("MainWindow", "TextLabel"))
 
 

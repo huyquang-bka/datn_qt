@@ -14,6 +14,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
         self.polygon = []
+        self.polygon_speed = []
         self.fp = ""
         self.connect_buttons()
 
@@ -23,6 +24,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.widget_draw_polygon = WidgetDrawPolygon()
         self.widget_draw_polygon.sig_send_polygon.connect(
             self.slot_get_polygon)
+        self.widget_draw_polygon_speed = WidgetDrawPolygon()
+        self.widget_draw_polygon_speed.sig_send_polygon.connect(
+            self.slot_get_polygon_speed)
 
         self.widget_graph = WidgetGraph()
 
@@ -33,18 +37,23 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.btn_start.clicked.connect(self.start)
         self.ui.btn_stop.clicked.connect(self.stop)
         self.ui.btn_draw_polygon.clicked.connect(self.draw_polygon)
+        self.ui.btn_draw_speed.clicked.connect(self.draw_speed)
         self.ui.btn_graph.clicked.connect(self.show_graph)
 
     def slot_get_polygon(self, polygon):
         self.polygon = polygon
         self.thread_counting.slot_get_polygon(polygon)
 
+    def slot_get_polygon_speed(self, polygon):
+        self.polygon_speed = polygon
+        self.thread_counting.slot_get_polygon_speed(polygon)
+
     def create_queue(self):
         self.output_queue = queue.Queue()
 
     def create_thread(self):
         self.thread_counting = ThreadCounting(
-            self.polygon, self.output_queue)
+            self.polygon, self.polygon_speed, self.output_queue)
         self.thread_counting.sig_car_count.connect(
             self.ui.qlabel_count_car.setText)
         self.thread_counting.sig_motor_count.connect(
@@ -57,6 +66,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.fp = fp
         if fp:
             self.polygon = []
+            self.polygon_speed = []
 
     def paintEvent(self, e):
         if self.output_queue.qsize() > 0:
@@ -80,9 +90,20 @@ class MainWindow(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.warning(
                 self, "Warning", "Vẽ vùng đếm trước khi bắt đầu")
             return
+        if not self.polygon_speed:
+            QtWidgets.QMessageBox.warning(
+                self, "Warning", "Vẽ vùng đếm tốc độ trước khi bắt đầu")
+            return
+        try:
+            foo = 1 / int(self.ui.qline_speed.text())
+        except ValueError:
+            QtWidgets.QMessageBox.warning(
+                self, "Warning", "Nhập giá trị tốc độ hợp lệ")
+            return
         self.ui.qlabel_count_car.setText("0")
         self.ui.qlabel_count_motor.setText("0")
         self.thread_counting.setup_fp(self.fp)
+        self.thread_counting.distance = int(self.ui.qline_speed.text())
         self.thread_counting.start()
         self.ui.btn_stop.setEnabled(True)
         self.ui.btn_start.setEnabled(False)
@@ -94,6 +115,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def draw_polygon(self):
         self.widget_draw_polygon.show_frame(self.fp)
+
+    def draw_speed(self):
+        self.widget_draw_polygon_speed.show_frame(self.fp)
 
     def show_graph(self):
         self.widget_graph.reload()

@@ -2,7 +2,7 @@ from PyQt5.QtCore import QThread, pyqtSignal
 import cv2
 import numpy as np
 from ..util.detect_yolov5 import Tracking
-from ..util.tools import count_object
+from ..util.tools import count_object, is_in_polygon
 import matplotlib.pyplot as plt
 import os
 
@@ -14,10 +14,13 @@ def convert_time_to_ms(seconds):
     return time_str
 
 
-def dict_to_graph(count_dict, fp):
+def dict_to_graph(count_dict, fp, speed=False):
     plt.figure(figsize=(8, 8))
     name = os.path.basename(fp)
-    name = os.path.splitext(name)[0]
+    if not speed:
+        name = os.path.splitext(name)[0]
+    else:
+        name = os.path.splitext(name)[0] + "_speed"
     car_count = count_dict["car"]
     motor_count = count_dict["motor"]
     max_type = car_count if car_count[-1] > motor_count[-1] else motor_count
@@ -43,11 +46,13 @@ class ThreadCounting(QThread):
     sig_car_count = pyqtSignal(str)
     sig_motor_count = pyqtSignal(str)
 
-    def __init__(self, polygon, output_queue):
+    def __init__(self, polygon, polygon_speed, output_queue):
         super().__init__()
         self.__thread_active = False
         self.output_queue = output_queue
         self.polygon = polygon
+        self.polygon_speed = polygon_speed
+        self.distance = 0
         self.tracking = Tracking()
 
     def setup_fp(self, fp):
@@ -60,6 +65,9 @@ class ThreadCounting(QThread):
 
     def slot_get_polygon(self, polygon):
         self.polygon = polygon
+
+    def slot_get_polygon_speed(self, polygon):
+        self.polygon_speed = polygon
 
     def setup_model(self, model_path, device):
         self.tracking.weights = model_path
@@ -79,6 +87,9 @@ class ThreadCounting(QThread):
         self.count_motor = 0
         self.frame_count = 0
         self.graph_dict = {"car": [], "motor": [], "time": []}
+        self.graph_dict_speed = {"car": [], "motor": [], "time": []}
+        self.speed_dict = {}
+        self.save_speed_dict = {}
         while self.__thread_active:
             ret, frame = cap.read()
             if not ret:
@@ -87,6 +98,15 @@ class ThreadCounting(QThread):
                 self.graph_dict["time"].append(
                     convert_time_to_ms(self.frame_count / self.fps))
                 dict_to_graph(self.graph_dict, self.fp)
+
+                self.graph_dict_speed["car"].append(
+                    int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 0])))
+                self.graph_dict_speed["motor"].append(
+                    (np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 1])))
+                self.graph_dict_speed["time"].append(
+                    convert_time_to_ms(self.frame_count / self.fps))
+                dict_to_graph(self.graph_dict_speed,
+                              f"speed_{self.fp}", speed=True)
                 break
             self.frame_count += 1
             if self.frame_count % (5 * self.fps) == 0 and self.frame_count != 0:
@@ -94,17 +114,42 @@ class ThreadCounting(QThread):
                 self.graph_dict["motor"].append(self.count_motor)
                 self.graph_dict["time"].append(
                     convert_time_to_ms(self.frame_count / self.fps))
+
+                self.graph_dict_speed["car"].append(
+                    int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 0])))
+                self.graph_dict_speed["motor"].append(
+                    int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 1])))
+                self.graph_dict_speed["time"].append(
+                    convert_time_to_ms(self.frame_count / self.fps))
             polygon = []
+            polygon_speed = []
             for point in self.polygon:
                 polygon.append((int(point[0]*W), int(point[1]*H)))
+            for point in self.polygon_speed:
+                polygon_speed.append((int(point[0]*W), int(point[1]*H)))
             polygon = self.convert_polygon(polygon)
+            polygon_speed = self.convert_polygon(polygon_speed)
             id_dict = self.tracking.track(frame)
             for id, bbox in id_dict.items():
-                x1, y1, x2, y2 = bbox[:4]
+                x1, y1, x2, y2, cls = bbox[:5]
+                x_center, y_center = int((x1 + x2) / 2), int((y1 + y2) / 2)
+                if is_in_polygon([x_center, y_center], polygon):
+                    try:
+                        self.speed_dict[id] += 1
+                    except:
+                        self.speed_dict[id] = 1
+                else:
+                    if id in self.speed_dict:
+                        self.save_speed_dict[id] = [self.distance /
+                                                    (self.speed_dict[id] / self.fps) * 3.6, cls]
+                        del self.speed_dict[id]
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                cv2.putText(frame, str(id), (x1, y1),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                if id in self.save_speed_dict:
+                    cv2.putText(frame, str(round(self.save_speed_dict[id][0])) + " km/h", (x1, y1),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
             cv2.polylines(frame, [polygon], True, (0, 0, 255), 2)
+            cv2.polylines(frame, [polygon_speed], True, (255, 0, 0), 2)
             if self.output_queue.empty():
                 self.output_queue.put(frame)
             num_car, num_motor = count_object(
@@ -121,5 +166,13 @@ class ThreadCounting(QThread):
         self.graph_dict["motor"].append(self.count_motor)
         self.graph_dict["time"].append(
             convert_time_to_ms(self.frame_count / self.fps))
+
+        self.graph_dict_speed["car"].append(
+            int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 0])))
+        self.graph_dict_speed["motor"].append(
+            int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 1])))
+        self.graph_dict_speed["time"].append(
+            convert_time_to_ms(self.frame_count / self.fps))
         dict_to_graph(self.graph_dict, self.fp)
+        dict_to_graph(self.graph_dict_speed, f"{self.fp}", speed=True)
         self.__thread_active = False

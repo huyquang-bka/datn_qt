@@ -140,8 +140,10 @@ class ThreadCounting(QThread):
                         self.speed_dict[id] = 1
                 else:
                     if id in self.speed_dict:
-                        self.save_speed_dict[id] = [self.distance /
-                                                    (self.speed_dict[id] / self.fps) * 3.6, cls]
+                        speed = [self.distance /
+                                 (self.speed_dict[id] / self.fps) * 3.6, cls]
+                        if speed <= 60:
+                            self.save_speed_dict[id]
                         del self.speed_dict[id]
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 if id in self.save_speed_dict:

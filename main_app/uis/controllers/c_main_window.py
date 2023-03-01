@@ -95,7 +95,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self, "Warning", "Vẽ vùng đếm tốc độ trước khi bắt đầu")
             return
         try:
-            foo = 1 / int(self.ui.qline_speed.text())
+            foo = 1 / float(self.ui.qline_speed.text())
         except ValueError:
             QtWidgets.QMessageBox.warning(
                 self, "Warning", "Nhập giá trị tốc độ hợp lệ")

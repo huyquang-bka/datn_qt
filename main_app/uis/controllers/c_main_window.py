@@ -103,7 +103,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.qlabel_count_car.setText("0")
         self.ui.qlabel_count_motor.setText("0")
         self.thread_counting.setup_fp(self.fp)
-        self.thread_counting.distance = int(self.ui.qline_speed.text())
+        self.thread_counting.distance = float(self.ui.qline_speed.text())
         self.thread_counting.start()
         self.ui.btn_stop.setEnabled(True)
         self.ui.btn_start.setEnabled(False)

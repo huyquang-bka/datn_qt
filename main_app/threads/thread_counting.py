@@ -132,8 +132,9 @@ class ThreadCounting(QThread):
             id_dict = self.tracking.track(frame)
             for id, bbox in id_dict.items():
                 x1, y1, x2, y2, cls = bbox[:5]
-                x_center, y_center = int((x1 + x2) / 2), int((y1 + y2) / 2)
-                if is_in_polygon([x_center, y_center], polygon):
+                # x_2_3, y_2_3 = int(x1 + (x2 - x1) * 2 / 3), int(
+                #     y1 + (y2 - y1) * 2 / 3)
+                if is_in_polygon([x2, y2], polygon_speed):
                     try:
                         self.speed_dict[id] += 1
                     except:
@@ -142,7 +143,7 @@ class ThreadCounting(QThread):
                     if id in self.speed_dict:
                         list_speed = [self.distance /
                                       (self.speed_dict[id] / self.fps) * 3.6, cls]
-                        if list_speed[0] <= 60:
+                        if 3 < list_speed[0] <= 60:
                             self.save_speed_dict[id] = list_speed
                         del self.speed_dict[id]
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)

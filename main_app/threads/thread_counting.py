@@ -100,9 +100,9 @@ class ThreadCounting(QThread):
                 dict_to_graph(self.graph_dict, self.fp)
 
                 self.graph_dict_speed["car"].append(
-                    int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 0])))
+                    int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 0] + [0])))
                 self.graph_dict_speed["motor"].append(
-                    (np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 1])))
+                    (np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 1] + [0])))
                 self.graph_dict_speed["time"].append(
                     convert_time_to_ms(self.frame_count / self.fps))
                 dict_to_graph(self.graph_dict_speed,
@@ -116,9 +116,9 @@ class ThreadCounting(QThread):
                     convert_time_to_ms(self.frame_count / self.fps))
 
                 self.graph_dict_speed["car"].append(
-                    int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 0])))
+                    int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 0] + [0])))
                 self.graph_dict_speed["motor"].append(
-                    int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 1])))
+                    int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 1] + [0])))
                 self.graph_dict_speed["time"].append(
                     convert_time_to_ms(self.frame_count / self.fps))
             polygon = []
@@ -168,9 +168,9 @@ class ThreadCounting(QThread):
             convert_time_to_ms(self.frame_count / self.fps))
 
         self.graph_dict_speed["car"].append(
-            int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 0])))
+            int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 0] + [0])))
         self.graph_dict_speed["motor"].append(
-            int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 1])))
+            int(np.mean([v[0] for k, v in self.save_speed_dict.items() if int(v[1]) == 1] + [0])))
         self.graph_dict_speed["time"].append(
             convert_time_to_ms(self.frame_count / self.fps))
         dict_to_graph(self.graph_dict, self.fp)

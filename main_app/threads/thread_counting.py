@@ -15,7 +15,7 @@ def convert_time_to_ms(seconds):
 
 
 def dict_to_graph(count_dict, fp, speed=False):
-    # plt.figure(figsize=(8, 8))
+    plt.figure(figsize=(20, 20))
     name = os.path.basename(fp)
     title = name
     if not speed:

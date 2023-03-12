@@ -45,12 +45,17 @@ def dict_to_graph(count_dict, fp, speed=False, stay=False):
     else:
         plt.ylabel("Counting")
     plt.legend(loc="upper left")
-    if not speed:
+    if speed:
+        avarage_speed_car = np.mean(car_count)
+        avarage_speed_motor = np.mean(motor_count)
         plt.title(
-            f"Counting result for {title}\nCar: {car_count[-1]}\nMotor: {motor_count[-1]}")
+            f"Speed result for {title}\nCar avarage speed: {avarage_speed_car:.2f} km/h\nMotor avarage speed: {avarage_speed_motor:.2f} km/h")
+    elif stay:
+        plt.title(
+            f"Time waiting result for {title}")
     else:
         plt.title(
-            f"Speed result for {title}")
+            f"Counting result for {title}\nCar: {car_count[-1]}\nMotor: {motor_count[-1]}")
     plt.savefig(f"resources/graphs/{name}.png")
 
 

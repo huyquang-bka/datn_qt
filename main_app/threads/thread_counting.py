@@ -51,8 +51,10 @@ def dict_to_graph(count_dict, fp, speed=False, stay=False):
         plt.title(
             f"Speed result for {title}\nCar avarage speed: {avarage_speed_car:.2f} km/h\nMotor avarage speed: {avarage_speed_motor:.2f} km/h")
     elif stay:
+        average_time_car = np.mean(car_count)
+        average_time_motor = np.mean(motor_count)
         plt.title(
-            f"Time waiting result for {title}")
+            f"Time waiting result for {title}\nCar avarage time: {average_time_car:.2f} s\nMotor avarage time: {average_time_motor:.2f} s")
     else:
         plt.title(
             f"Counting result for {title}\nCar: {car_count[-1]}\nMotor: {motor_count[-1]}")

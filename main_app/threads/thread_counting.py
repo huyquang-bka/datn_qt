@@ -1,3 +1,4 @@
+import time
 from PyQt5.QtCore import QThread, pyqtSignal
 import cv2
 import numpy as np
@@ -98,7 +99,14 @@ class ThreadCounting(QThread):
         self.graph_dict_speed = {"car": [], "motor": [], "time": []}
         self.speed_dict = {}
         self.save_speed_dict = {}
+        count = 0
+        old_time = 0
+        fps = 0
         while self.__thread_active:
+            if time.time() - old_time > 1:
+                fps = round(count / (time.time() - old_time))
+                count = 0
+                old_time = time.time()
             ret, frame = cap.read()
             if not ret:
                 self.graph_dict["car"].append(self.count_car)
@@ -117,6 +125,7 @@ class ThreadCounting(QThread):
                               f"speed_{self.fp}", speed=True)
                 break
             self.frame_count += 1
+            count += 1
             if self.frame_count % (5 * self.fps) == 0 and self.frame_count != 0:
                 self.graph_dict["car"].append(self.count_car)
                 self.graph_dict["motor"].append(self.count_motor)
@@ -161,6 +170,7 @@ class ThreadCounting(QThread):
 
             cv2.polylines(frame, [polygon], True, (0, 0, 255), 2)
             cv2.polylines(frame, [polygon_speed], True, (255, 0, 0), 2)
+            cv2.putText(frame, f"FPS: {fps}", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
             if self.output_queue.empty():
                 self.output_queue.put(frame)
             num_car, num_motor = count_object(

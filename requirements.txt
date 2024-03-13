@@ -1,0 +1,6 @@
+PyQt5
+ultralytics
+filterpy
+matplotlib
+numpy
+pandas

@@ -4,3 +4,4 @@ filterpy
 matplotlib
 numpy
 pandas
+scikit-image
